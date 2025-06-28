@@ -3,7 +3,6 @@ import userModel from "../models/userModel.js"
 import Stripe from 'stripe'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
-const frontend_url = 'http://localhost:5173'
 
 // placing user order for frontend
 const placeOrder = async(req,res) => {
@@ -69,8 +68,8 @@ const placeOrder = async(req,res) => {
             discounts: [{
                 promotion_code: 'promo_1RebO4P6y1QRA31gzZ4k6Itd'
             }],
-            success_url:`${frontend_url}/verify?success=true&orderId=${newOrder._id}`,
-            cancel_url:`${frontend_url}/verify?success=false&orderId=${newOrder._id}`,
+            success_url:`${process.env.FRONTEND_URL}/verify?success=true&orderId=${newOrder._id}`,
+            cancel_url:`${process.env.FRONTEND_URL}/verify?success=false&orderId=${newOrder._id}`,
         })
 
         res.json({success:true, session_url:session.url})
