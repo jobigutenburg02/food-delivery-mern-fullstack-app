@@ -83,7 +83,7 @@ const placeOrder = async(req,res) => {
     }
     catch(error){
         console.log(error)
-        res.json({success:false,message:"Error"})
+        res.json({success:false, message:"Error"})
     }
 }
 
@@ -110,7 +110,7 @@ const verifyOrder = async (req, res) => {
 const userOrders = async (req, res) => {
     try{
         const userId = req.user.id;
-        const orders = await orderModel.find({userId}).sort({createdAt:-1})
+        const orders = await orderModel.find({userId}).sort({date:-1})
         res.json({success:true, data:orders})
     }
     catch(error){
@@ -123,7 +123,7 @@ const userOrders = async (req, res) => {
 const listOrders = async (req, res) => {
     try{
         const orders = await orderModel.find({}); // get all orders
-        res.json({success:true,data:orders})
+        res.json({success:true, data:orders})
     }
     catch(error){
         console.log(error);
@@ -134,8 +134,8 @@ const listOrders = async (req, res) => {
 // api for updating order status
 const updateStatus = async (req, res) => {
     try{
-        await orderModel.findByIdAndUpdate(req.body.orderId,{status:req.body.status}) // find orderId and update status
-        res.json({success:true,message:"Status updated"})
+        await orderModel.findByIdAndUpdate(req.body.orderId, {status:req.body.status}) // find orderId and update status
+        res.json({success:true, message:"Status updated"})
     }
     catch(error){
         console.log(error)
