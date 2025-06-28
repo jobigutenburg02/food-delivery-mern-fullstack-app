@@ -17,8 +17,7 @@ const PlaceOrder = () => {
         street:"",
         city:"",
         state:"",
-        zipcode:"",
-        country:"",
+        pincode:"",
         phone:""
     })
     
@@ -89,10 +88,7 @@ const PlaceOrder = () => {
                 <input name='city' onChange={handleChange} value={data.city} type="text" placeholder='City' required />
                 <input name='state' onChange={handleChange} value={data.state} type="text" placeholder='State' required />
             </div>
-            <div className="multi-fields">
-                <input name='zipcode' onChange={handleChange} value={data.zipcode} type="text" placeholder='Zip code' required />
-                <input name='country' onChange={handleChange} value={data.country} type="text" placeholder='Country' required />
-            </div>
+            <input name='pincode' onChange={handleChange} value={data.pincode} type="text" placeholder='Pin code' required />
             <input name='phone' onChange={handleChange} value={data.phone} type="text" placeholder='Phone' required />
             <button type='submit'>Proceed to Payment</button>
         </div>
