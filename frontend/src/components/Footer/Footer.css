@@ -50,12 +50,11 @@
 
 .footer-logo{
     width: 250px;
-    transform: scaleX(1.6);
-    margin-left: 70px;
-    
+    transform: scaleX(1.5);
+    margin-left: 60px;
 }
 
-@media (max-width:750px){
+@media (max-width:950px){
     .footer-content{
         display: flex;
         flex-direction: column;
@@ -63,5 +62,23 @@
     }
     .footer-copyright{
         text-align: center;
+    }
+    .footer-logo{
+        transform: scaleX(1.2);
+        margin-left: 40px;
+    }
+}
+
+@media (max-width:450px){
+    .footer-logo{
+        transform: scaleX(1);
+    }
+}
+
+@media (max-width:350px){
+    .footer-logo{
+        width: 200px;
+        height: 100px;
+        transform: scaleX(1);
     }
 }
