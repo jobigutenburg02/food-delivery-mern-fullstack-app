@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
 
-  const baseUrl = process.env.BACKEND_URL;
+  const baseUrl = import.meta.env.VITE_API_URL;
 
   return (
     <div>
