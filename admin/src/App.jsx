@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
 
-  const baseUrl = "http://localhost:5000";
+  const baseUrl = process.env.BACKEND_URL;
 
   return (
     <div>
