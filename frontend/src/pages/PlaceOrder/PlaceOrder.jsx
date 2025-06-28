@@ -66,6 +66,7 @@ const PlaceOrder = () => {
     */
     useEffect(()=>{
         if(!token || getTotalCartAmount()===0){
+            alert('Please login to place order.')
             navigate('/cart')
         }
     },[token])
