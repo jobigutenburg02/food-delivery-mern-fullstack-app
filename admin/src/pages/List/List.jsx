@@ -36,7 +36,6 @@ const List = ({ baseUrl }) => {
 
   return (
     <div className='list flex-col'>
-      <p>All Foods List</p>
       <div className="list-table">
         <div className="list-table-format title">
           <b>Image</b>
@@ -52,7 +51,7 @@ const List = ({ baseUrl }) => {
               <p>{item.name}</p>
               <p>{item.category}</p>
               <p>₹{item.price}</p>
-              <p onClick={()=>removeFood(item._id)} className='cursor'>X</p>
+              <button onClick={()=>removeFood(item._id)} className='cursor'>Remove</button>
             </div>
           )
         })}
