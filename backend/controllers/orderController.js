@@ -61,16 +61,23 @@ const placeOrder = async(req,res) => {
             quantity: 1,
         })
         
-        // create stripe session
-        const session = await stripe.checkout.sessions.create({
+        // Create Stripe session config
+        const sessionConfig = {
             line_items,
-            mode:'payment',
-            discounts: [{
-                promotion_code: 'promo_1RebO4P6y1QRA31gzZ4k6Itd'
-            }],
-            success_url:`${process.env.FRONTEND_URL}/verify?success=true&orderId=${newOrder._id}`,
-            cancel_url:`${process.env.FRONTEND_URL}/verify?success=false&orderId=${newOrder._id}`,
-        })
+            mode: "payment",
+            success_url: `${process.env.FRONTEND_URL}/verify?success=true&orderId=${newOrder._id}`,
+            cancel_url: `${process.env.FRONTEND_URL}/verify?success=false&orderId=${newOrder._id}`,
+        };
+
+        // apply discount if discountAmount > 0
+        if (discountAmount > 0) {
+            sessionConfig.discounts = [{
+                promotion_code: 'promo_1RebO4P6y1QRA31gzZ4k6Itd',
+            }];
+        }
+
+        // Create Stripe session
+        const session = await stripe.checkout.sessions.create(sessionConfig);
 
         res.json({success:true, session_url:session.url})
     }
