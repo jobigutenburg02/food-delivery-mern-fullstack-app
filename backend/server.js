@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 5000;
 // middleware
 app.use(express.json())
 app.use(cors({
-    origin: [process.env.FRONTEND_URL],
+    origin: [process.env.FRONTEND_URL, process.env.ADMIN_URL],
     credentials: true
 }))
 
@@ -27,10 +27,6 @@ app.use('/images', express.static('uploads')) // images in 'uploads' folder are 
 app.use("/api/user", userRouter)
 app.use("/api/cart", cartRouter)
 app.use("/api/order", orderRouter)
-
-app.get("/", (req,res) => {
-    res.send("Hello World!")
-})
 
 app.listen(PORT, () => {
     console.log(`Server listening on http://localhost:${PORT}`)
