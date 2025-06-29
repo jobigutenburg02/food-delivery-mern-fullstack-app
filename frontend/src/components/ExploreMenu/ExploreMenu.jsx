@@ -34,13 +34,13 @@ const ExploreMenu = ({ category, setCategory }) => {
     return Object.values(groups);
   }, [food_list]);
   
-  // to determine whether arrows should be shown based on scroll position
+  // Check if the scroll container is scrollable left/right and update arrow visibility
   const checkScrollPosition = useCallback(() => {
     if (!menuRef.current) return;
     
     const { scrollLeft, scrollWidth, clientWidth } = menuRef.current;
-    const showLeft = scrollLeft > 0;
-    const showRight = scrollLeft < scrollWidth - clientWidth - 1;
+    const showLeft = scrollLeft > 0; // Show left arrow only if there's content scrolled to the left
+    const showRight = scrollLeft < scrollWidth - clientWidth - 1; // Show right arrow only if there's more content hidden to the right
     
     setScrollState(prev => (
       prev.showLeft !== showLeft || prev.showRight !== showRight 
@@ -62,19 +62,47 @@ const ExploreMenu = ({ category, setCategory }) => {
     const menu = menuRef.current;
     if (!menu) return;
 
-    checkScrollPosition();
+    // Image load logic
+    const images = menu.querySelectorAll("img");
+    let loadedCount = 0;
 
-    // Run again after a short delay (to allow images to load)
-    const timeout = setTimeout(() => {
+    const handleImageLoad = () => {
+        loadedCount++;
+        if (loadedCount === images.length) {
+            checkScrollPosition();
+        }
+    };
+
+    images.forEach(img => {
+        // image has already finished loading
+        if (img.complete) {
+            loadedCount++;
+        } else {
+            img.addEventListener("load", handleImageLoad);
+            img.addEventListener("error", handleImageLoad);
+        }
+    });
+    
+    // If all images are already loaded
+    if (loadedCount === images.length) {
         checkScrollPosition();
-    }, 500);
+    }
 
-    // Add scroll event listener
-    menu.addEventListener('scroll', checkScrollPosition);
+    // for dynamic layout shifts
+    const observer = new ResizeObserver(() => {
+        checkScrollPosition();
+    });
+
+    observer.observe(menu);
+    menu.addEventListener("scroll", checkScrollPosition);
 
     return () => {
-        clearTimeout(timeout);
-        menu.removeEventListener('scroll', checkScrollPosition);
+        images.forEach(img => {
+            img.removeEventListener("load", handleImageLoad);
+            img.removeEventListener("error", handleImageLoad);
+        });
+        menu.removeEventListener("scroll", checkScrollPosition);
+        observer.disconnect();
     };
   }, [checkScrollPosition]);
 
