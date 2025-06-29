@@ -2,7 +2,7 @@ import React, { useRef, useCallback, useEffect, useState, useContext, useMemo } 
 import './ExploreMenu.css';
 import { StoreContext } from '../../context/StoreContext'; // Adjust the import path as needed
 
-const SCROLL_AMOUNT = 200;
+const SCROLL_AMOUNT = 150;
 
 const ExploreMenu = ({ category, setCategory }) => {
   const { food_list, baseUrl } = useContext(StoreContext);
@@ -58,22 +58,25 @@ const ExploreMenu = ({ category, setCategory }) => {
     });
   }, []);
 
-  // Initial check and setup event listeners
   useEffect(() => {
     const menu = menuRef.current;
     if (!menu) return;
 
-    // Check for initial scroll position and after a short delay (for loading images)
     checkScrollPosition();
-    const timeout = setTimeout(checkScrollPosition, SCROLL_AMOUNT);
 
-    menu.addEventListener('scroll', checkScrollPosition); // update arrow visibility
+    // Run again after a short delay (to allow images to load)
+    const timeout = setTimeout(() => {
+        checkScrollPosition();
+    }, 500);
+
+    // Add scroll event listener
+    menu.addEventListener('scroll', checkScrollPosition);
 
     return () => {
-      clearTimeout(timeout);
-      menu.removeEventListener('scroll', checkScrollPosition);
+        clearTimeout(timeout);
+        menu.removeEventListener('scroll', checkScrollPosition);
     };
-  }, []);
+  }, [checkScrollPosition]);
 
 
   return (
