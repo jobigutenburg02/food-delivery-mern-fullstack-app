@@ -8,7 +8,7 @@ import { StoreContext } from '../../context/StoreContext';
 
 const MyOrders = () => {
     
-    const {baseUrl, token} = useContext(StoreContext)
+    const {baseUrl, token, setCartItems} = useContext(StoreContext)
     const [data, setData] = useState([])
 
     const fetchOrders = async () => {
@@ -19,6 +19,7 @@ const MyOrders = () => {
 
     useEffect(()=>{
       if(token){
+        setCartItems({});
         fetchOrders();
       }
     },[token])
