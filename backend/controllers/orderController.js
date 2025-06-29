@@ -19,7 +19,7 @@ const placeOrder = async(req,res) => {
         })
 
         await newOrder.save(); // save order in db
-        await userModel.findByIdAndUpdate(req.body.userId,{cartData:{}}); // delete user cart data
+        await userModel.findByIdAndUpdate(userId, {cartData:{}}); // delete user cart data
         
         // add items
         const line_items = items.map((item)=>({
