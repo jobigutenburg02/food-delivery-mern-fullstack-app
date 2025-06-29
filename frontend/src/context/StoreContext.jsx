@@ -4,10 +4,11 @@ import { createContext, useEffect, useState } from "react";
 export const StoreContext = createContext(null)
 
 const StoreContextProvider = (props) => {
+    const baseUrl = import.meta.env.VITE_API_URL;
+    const [isLoading, setIsLoading] = useState(true);
 
     const [cartItems, setCartItems] = useState({});
-    const baseUrl = import.meta.env.VITE_API_URL;
-    const [token, setToken] = useState("")
+    const [token, setToken] = useState(localStorage.getItem("token") || "");
     const [food_list, setFoodList] = useState([])
 
     const addToCart = async (itemId) => {
@@ -56,13 +57,17 @@ const StoreContextProvider = (props) => {
     useEffect(() => {
         async function loadData(){
             await fetchFoodList()
-            if(localStorage.getItem("token")){
-            setToken(localStorage.getItem("token"));
-            await loadCartData(localStorage.getItem("token"))
+            if(token){
+                await loadCartData(token)
             }
+            setIsLoading(false);
         }
         loadData();
-    }, [])
+    }, [token])
+    
+    if(isLoading){
+        return <div>Loading...</div>
+    }
 
     const contextValue = {
         food_list,
@@ -73,7 +78,7 @@ const StoreContextProvider = (props) => {
         getTotalCartAmount,
         baseUrl,
         token,
-        setToken
+        setToken,
     }
 
     return (
