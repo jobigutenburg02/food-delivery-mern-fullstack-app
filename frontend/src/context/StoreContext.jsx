@@ -53,12 +53,19 @@ const StoreContextProvider = (props) => {
         setCartItems(response.data.cartData);
     }
     
-    // this helps not to logout automatically when refreshing page
+    // this side effect helps not to logout automatically when refreshing page
+    // it also clears the cart and removes the flag ("cartCleared") from local storage, if flag is true
     useEffect(() => {
         async function loadData(){
             await fetchFoodList()
-            if(token){
+
+            const cartCleared = localStorage.getItem("cart_cleared");
+            
+            if(token && cartCleared !== "true"){
                 await loadCartData(token)
+            } else if (cartCleared === "true") {
+                setCartItems({});
+                localStorage.removeItem("cart_cleared");
             }
             setIsLoading(false);
         }
