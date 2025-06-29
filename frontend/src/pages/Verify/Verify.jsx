@@ -14,8 +14,10 @@ const Verify = () => {
     const navigate = useNavigate();
 
     const verifyPayment = async () => {
-        const response = await axios.post(`${baseUrl}/api/order/verify`,{success,orderId})
+        const response = await axios.post(`${baseUrl}/api/order/verify`, {success,orderId})
+        console.log('Verification response:', response.data);
         if(response.data.success){
+            localStorage.setItem("cart_cleared", "true");
             setCartItems({});
             navigate('/myorders');
         }
