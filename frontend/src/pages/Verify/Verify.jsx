@@ -10,12 +10,13 @@ const Verify = () => {
     const orderId = searchParams.get("orderId")
     // console.log(success, orderId)
 
-    const {baseUrl} = useContext(StoreContext);
+    const {baseUrl, setCartItems} = useContext(StoreContext);
     const navigate = useNavigate();
 
     const verifyPayment = async () => {
         const response = await axios.post(`${baseUrl}/api/order/verify`,{success,orderId})
         if(response.data.success){
+            setCartItems({});
             navigate('/myorders');
         }
         else{
