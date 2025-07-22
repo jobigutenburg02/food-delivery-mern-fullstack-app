@@ -9,11 +9,10 @@
 
 ## Features
 
-- RESTful API endpoints for food, categories, and orders
+- RESTful API endpoints for food, user, cart, order, and image
 - JWT-based authentication for secure user login
 - Support for food images, pricing, and inventory
 - Implemented payment gateways using Stripe API for seamless online transactions
-- Ready-to-use with React frontend
 
 ---
 
@@ -174,6 +173,54 @@ Once both the backend and frontend are running, you’ll be able to:
  - Log in/register
  - Place and track orders
    
+---
+
+## API Endpoints
+
+### Food Routes (`/api/food`)
+- **POST `/add`**  
+  Add a new food item (with image upload).
+- **GET `/list`**  
+  Get a list of all food items.
+- **POST `/remove`**  
+  Remove a food item by ID.
+
+### User Routes (`/api/user`)
+- **POST `/register`**  
+  Register a new user.
+- **POST `/login`**  
+  Login an existing user.
+
+### Cart Routes (`/api/cart`)
+- **POST `/add`**  
+  Add a food item to the user's cart (requires authentication).
+- **POST `/remove`**  
+  Remove a food item from the user's cart (requires authentication).
+- **POST `/get`**  
+  Get the current user's cart data (requires authentication).
+
+### Order Routes (`/api/order`)
+- **POST `/place`**  
+  Place a new order (requires authentication, integrates Stripe).
+- **POST `/verify`**  
+  Verify payment and update order status.
+- **POST `/userorders`**  
+  Get all orders for the current user (requires authentication).
+- **GET `/list`**  
+  Get all orders (admin panel).
+- **POST `/status`**  
+  Update the status of an order.
+
+### Image Routes (`/images`)
+- **GET `/images/:filename`**  
+  Serve uploaded food images.
+
+---
+
+**Note:**  
+- Endpoints marked "requires authentication" use JWT-based middleware.
+- Stripe integration is used for payment processing in the `/api/order/place` endpoint.
+
 ---
 
 ## Support
