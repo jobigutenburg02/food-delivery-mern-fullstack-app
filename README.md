@@ -1,8 +1,9 @@
 ## Tech Stack Used
 
-- Backend: Express.js, Node.js, MongoDB
-- Frontend: React, Vite
-- Authentication: JWT (JSON Web Token)
+
+- **Backend:** Express.js, Node.js, MongoDB
+- **Frontend:** React, Vite
+- **Authentication:** JWT (JSON Web Token)
 
 ---
 
