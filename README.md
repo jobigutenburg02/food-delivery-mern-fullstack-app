@@ -1,9 +1,8 @@
 ## Tech Stack Used
 
-- The backend is built using **Express**, and it provides a robust interface for managing food items, users, orders, and cart functionality. 
-- The frontend is built using **React** with **Vite** tool, and it provides a fast, responsive, and modern user interface for browsing food items, adding them to cart, and placing orders.
-- MongoDB is the database used.
-- Node.js is the runtime environment used for running both frontend and backend.
+- Backend: Express.js, Node.js, MongoDB
+- Frontend: React, Vite
+- Authentication: JWT (JSON Web Token)
 
 ---
 
