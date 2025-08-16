@@ -227,4 +227,4 @@ Once both the backend and frontend are running, you’ll be able to:
 
 For support and questions:
 - Create an issue in the repository
-- Contact: jbros2513@gmail.com
+- Contact: johanbiju02@gmail.com
